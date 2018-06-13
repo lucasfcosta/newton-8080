@@ -1,0 +1,31 @@
+{
+  "name": "newton-8080",
+  "version": "0.0.1",
+  "description": "An Intel 8080 emulator.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha './{,!(node_modules)/**/}*.spec.js'",
+    "lint": "eslint --ignore-path .gitignore ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasfcosta/newton-8080.git"
+  },
+  "keywords": [
+    "intel-8080",
+    "8080",
+    "emulator",
+    "intel8080"
+  ],
+  "author": "Lucas Fernandes da Costa <lucas@lucasfcosta.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucasfcosta/newton-8080/issues"
+  },
+  "homepage": "https://github.com/lucasfcosta/newton-8080#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "mocha": "^5.2.0"
+  }
+}
