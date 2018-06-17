@@ -51,6 +51,15 @@ Newton.prototype.getState = function getState() {
     };
 };
 
+Newton.prototype.readBytes = function readBytes(n, offset) {
+    let result = this.memory[offset];
+    for (let i = 1; i < n; i++) {
+        result = this.memory[offset + i] << 8 | result;
+    }
+
+    return result;
+};
+
 Newton.prototype.NOP = function NOP() {
     return 4;
 };

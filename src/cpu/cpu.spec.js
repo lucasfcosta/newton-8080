@@ -66,6 +66,23 @@ describe('Newton', () => {
         });
     });
 
+    describe('readBytes', () => {
+        it('reads single bytes correctly', () => {
+            const n = new Newton();
+            n.memory = [0xff, 0x40, 0x7f];
+            expect(n.readBytes(1, 0)).to.be.equal(0xff);
+            expect(n.readBytes(1, 1)).to.be.equal(0x40);
+            expect(n.readBytes(1, 2)).to.be.equal(0x7f);
+        });
+
+        it('reads two bytes as a single number correctly', () => {
+            const n = new Newton();
+            n.memory = [0xff, 0x40, 0x7f];
+            expect(n.readBytes(2, 0)).to.be.equal(0x40ff);
+            expect(n.readBytes(2, 1)).to.be.equal(0x7f40);
+        });
+    });
+
     describe('OP Codes', () => {
         let n;
 
