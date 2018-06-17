@@ -84,15 +84,21 @@ describe('Newton', () => {
     });
 
     describe('OP Codes', () => {
-        let n;
+        let n, mirrorState;
 
         beforeEach(() => {
             n = new Newton();
+            mirrorState = (new Newton()).getState();
         });
 
         it('NOP', () => {
-            expect(n.NOP()).to.be.equal(4);
-            expect(n.getState()).to.be.deep.equal((new Newton()).getState());
+            n.memory = [0x00];
+
+            mirrorState.pc = 1;
+            mirrorState.memory = [0x00];
+
+            expect(n.runNextInstruction()).to.be.equal(4);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
         });
     });
 });

@@ -64,4 +64,11 @@ Newton.prototype.NOP = function NOP() {
     return 4;
 };
 
+Newton.prototype.runNextInstruction = function runNextInstruction() {
+    switch (this.memory[this.pc]) {
+        case 0x00: { this.pc += 1; return this.NOP(); }
+        default: throw new Error('Unknown OP Code');
+    }
+};
+
 module.exports = Newton;
