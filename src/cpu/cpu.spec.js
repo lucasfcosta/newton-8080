@@ -4,9 +4,9 @@ const { expect } = require('chai');
 
 const Newton = require('./cpu');
 
-describe("Newton", () => {
-    describe("constructor", () => {
-        it("has the initial state when created", () => {
+describe('Newton', () => {
+    describe('constructor', () => {
+        it('has the initial state when created', () => {
             const n = new Newton();
 
             expect(n.getState()).to.be.deep.equal({
@@ -28,8 +28,8 @@ describe("Newton", () => {
         });
     });
 
-    describe("getState", () => {
-        it("returns the properties which represent the CPU state", () => {
+    describe('getState', () => {
+        it('returns the properties which represent the CPU state', () => {
             const n = new Newton();
 
             n.b = 1;
@@ -66,14 +66,14 @@ describe("Newton", () => {
         });
     });
 
-    describe("OP Codes", () => {
+    describe('OP Codes', () => {
         let n;
 
         beforeEach(() => {
             n = new Newton();
         });
 
-        it("NOP", () => {
+        it('NOP', () => {
             expect(n.NOP()).to.be.equal(4);
             expect(n.getState()).to.be.deep.equal((new Newton()).getState());
         });
