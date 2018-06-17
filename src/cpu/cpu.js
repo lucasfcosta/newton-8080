@@ -32,4 +32,23 @@ function Newton() {
     this.memory = new Uint8Array(65536);
 }
 
+Newton.prototype.getState = function getState() {
+    return {
+        b: this.b,
+        c: this.c,
+        d: this.d,
+        e: this.e,
+        h: this.h,
+        l: this.l,
+        pc: this.pc,
+        sp: this.sp,
+        cb: this.cb,
+        a: this.a,
+        sb: this.sb,
+        zb: this.zb,
+        pb: this.pb,
+        memory: this.memory
+    };
+};
+
 module.exports = Newton;
