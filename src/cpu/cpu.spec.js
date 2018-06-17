@@ -100,5 +100,16 @@ describe('Newton', () => {
             expect(n.runNextInstruction()).to.be.equal(4);
             expect(n.getState()).to.be.deep.equal(mirrorState);
         });
+
+
+        it('JMP', () => {
+            n.memory = [0xc3, 0x33, 0x44];
+
+            mirrorState.pc = 0x4433;
+            mirrorState.memory = [0xc3, 0x33, 0x44];
+
+            expect(n.runNextInstruction()).to.be.equal(10);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
     });
 });

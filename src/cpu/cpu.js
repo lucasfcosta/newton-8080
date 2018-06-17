@@ -64,9 +64,15 @@ Newton.prototype.NOP = function NOP() {
     return 4;
 };
 
+Newton.prototype.JMP = function JMP() {
+    this.pc = this.readBytes(2, this.pc - 2);
+    return 10;
+};
+
 Newton.prototype.runNextInstruction = function runNextInstruction() {
     switch (this.memory[this.pc]) {
         case 0x00: { this.pc += 1; return this.NOP(); }
+        case 0xc3: { this.pc += 3; return this.JMP(); }
         default: throw new Error('Unknown OP Code');
     }
 };
