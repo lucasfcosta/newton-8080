@@ -51,4 +51,8 @@ Newton.prototype.getState = function getState() {
     };
 };
 
+Newton.prototype.NOP = function NOP() {
+    return 4;
+};
+
 module.exports = Newton;

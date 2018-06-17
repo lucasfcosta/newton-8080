@@ -65,4 +65,17 @@ describe("Newton", () => {
             });
         });
     });
+
+    describe("OP Codes", () => {
+        let n;
+
+        beforeEach(() => {
+            n = new Newton();
+        });
+
+        it("NOP", () => {
+            expect(n.NOP()).to.be.equal(4);
+            expect(n.getState()).to.be.deep.equal((new Newton()).getState());
+        });
+    });
 });
