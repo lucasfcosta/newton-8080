@@ -140,5 +140,37 @@ describe('Newton', () => {
             expect(n.runNextInstruction()).to.be.equal(11);
             expect(n.getState()).to.be.deep.equal(mirrorState);
         });
+
+        it('PUSH_D', () => {
+            n.memory = [0xd5, 0x00, 0x00, 0x00];
+            n.sp = 3;
+            n.d = 0xdd;
+            n.e = 0xee;
+
+            mirrorState.pc = 1;
+            mirrorState.memory = [0xd5, 0xee, 0xdd, 0x00];
+            mirrorState.sp = 1;
+            mirrorState.d = 0xdd;
+            mirrorState.e = 0xee;
+
+            expect(n.runNextInstruction()).to.be.equal(11);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
+
+        it('PUSH_H', () => {
+            n.memory = [0xe5, 0x00, 0x00, 0x00];
+            n.sp = 3;
+            n.h = 0x11;
+            n.l = 0x22;
+
+            mirrorState.pc = 1;
+            mirrorState.memory = [0xe5, 0x22, 0x11, 0x00];
+            mirrorState.sp = 1;
+            mirrorState.h = 0x11;
+            mirrorState.l = 0x22;
+
+            expect(n.runNextInstruction()).to.be.equal(11);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
     });
 });
