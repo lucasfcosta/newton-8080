@@ -83,6 +83,19 @@ describe('Newton', () => {
         });
     });
 
+    describe('writeBytes', () => {
+        it('writes one byte to a memory address', () => {
+            const n = new Newton();
+            n.memory = [0xff, 0x30, 0x88, 0x45];
+
+            n.writeBytes(0x03, 0x11);
+            n.writeBytes(0x01, 0x77);
+
+            expect(n.memory[0x01]).to.be.equal(0x77);
+            expect(n.memory[0x03]).to.be.equal(0x11);
+        });
+    });
+
     describe('OP Codes', () => {
         let n, mirrorState;
 
@@ -109,6 +122,22 @@ describe('Newton', () => {
             mirrorState.memory = [0xc3, 0x33, 0x44];
 
             expect(n.runNextInstruction()).to.be.equal(10);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
+
+        it('PUSH_B', () => {
+            n.memory = [0xc5, 0x00, 0x00, 0x00];
+            n.sp = 3;
+            n.b = 0xbb;
+            n.c = 0xcc;
+
+            mirrorState.pc = 1;
+            mirrorState.memory = [0xc5, 0xcc, 0xbb, 0x00];
+            mirrorState.sp = 1;
+            mirrorState.b = 0xbb;
+            mirrorState.c = 0xcc;
+
+            expect(n.runNextInstruction()).to.be.equal(11);
             expect(n.getState()).to.be.deep.equal(mirrorState);
         });
     });

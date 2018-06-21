@@ -60,6 +60,11 @@ Newton.prototype.readBytes = function readBytes(n, offset) {
     return result;
 };
 
+Newton.prototype.writeBytes = function writeBytes(offset, v) {
+    this.memory[offset] = v;
+    return this.memory;
+};
+
 Newton.prototype.NOP = function NOP() {
     return 4;
 };
@@ -69,10 +74,18 @@ Newton.prototype.JMP = function JMP() {
     return 10;
 };
 
+Newton.prototype.PUSH_B = function PUSH_B() {
+    this.writeBytes(this.sp - 1, this.b);
+    this.writeBytes(this.sp - 2, this.c);
+    this.sp -= 2;
+    return 11;
+};
+
 Newton.prototype.runNextInstruction = function runNextInstruction() {
     switch (this.memory[this.pc]) {
         case 0x00: { this.pc += 1; return this.NOP(); }
         case 0xc3: { this.pc += 3; return this.JMP(); }
+        case 0xc5: { this.pc += 1; return this.PUSH_B(); }
         default: throw new Error('Unknown OP Code');
     }
 };
