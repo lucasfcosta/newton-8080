@@ -73,9 +73,9 @@ Newton.prototype.push = function push(reg1, reg2) {
 };
 
 // TODO check D8 meaning on all MOV_REGs and maybe remove it
-Newton.prototype.moveImmediate = function moveImmediate(reg) {
+Newton.prototype.moveImmediateRegister = function moveImmediateRegister(reg) {
     this[reg] = this.readBytes(1, this.pc - 1);
-    return 10;
+    return 7;
 };
 
 Newton.prototype.NOP = function NOP() {
@@ -100,31 +100,31 @@ Newton.prototype.PUSH_H = function PUSH_D() {
 };
 
 Newton.prototype.MVI_A_D8 = function MVI_A_D8() {
-    return this.moveImmediate('a');
+    return this.moveImmediateRegister('a');
 };
 
 Newton.prototype.MVI_B_D8 = function MVI_B_D8() {
-    return this.moveImmediate('b');
+    return this.moveImmediateRegister('b');
 };
 
 Newton.prototype.MVI_C_D8 = function MVI_C_D8() {
-    return this.moveImmediate('c');
+    return this.moveImmediateRegister('c');
 };
 
 Newton.prototype.MVI_D_D8 = function MVI_D_D8() {
-    return this.moveImmediate('d');
+    return this.moveImmediateRegister('d');
 };
 
 Newton.prototype.MVI_E_D8 = function MVI_E_D8() {
-    return this.moveImmediate('e');
+    return this.moveImmediateRegister('e');
 };
 
 Newton.prototype.MVI_H_D8 = function MVI_H_D8() {
-    return this.moveImmediate('h');
+    return this.moveImmediateRegister('h');
 };
 
 Newton.prototype.MVI_L_D8 = function MVI_L_D8() {
-    return this.moveImmediate('l');
+    return this.moveImmediateRegister('l');
 };
 
 Newton.prototype.runNextInstruction = function runNextInstruction() {
