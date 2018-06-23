@@ -1,4 +1,7 @@
 function Newton() {
+    // Accumulator
+    this.a = 0;
+
     // General Purpose Registers
     this.b = 0;
     this.c = 0;
@@ -17,7 +20,7 @@ function Newton() {
     this.cb = 0;
 
     // Auxiliary Carry Bit
-    this.a = 0;
+    this.acb = 0;
 
     // Signal Bit
     this.sb = 0;
@@ -34,6 +37,7 @@ function Newton() {
 
 Newton.prototype.getState = function getState() {
     return {
+        a: this.a,
         b: this.b,
         c: this.c,
         d: this.d,
@@ -43,7 +47,7 @@ Newton.prototype.getState = function getState() {
         pc: this.pc,
         sp: this.sp,
         cb: this.cb,
-        a: this.a,
+        acb: this.acb,
         sb: this.sb,
         zb: this.zb,
         pb: this.pb,

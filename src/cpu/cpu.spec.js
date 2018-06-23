@@ -10,6 +10,7 @@ describe('Newton', () => {
             const n = new Newton();
 
             expect(n.getState()).to.be.deep.equal({
+                a: 0,
                 b: 0,
                 c: 0,
                 d: 0,
@@ -19,7 +20,7 @@ describe('Newton', () => {
                 pc: 0,
                 sp: 0,
                 cb: 0,
-                a: 0,
+                acb: 0,
                 sb: 0,
                 zb: 0,
                 pb: 0,
@@ -32,35 +33,37 @@ describe('Newton', () => {
         it('returns the properties which represent the CPU state', () => {
             const n = new Newton();
 
-            n.b = 1;
-            n.c = 2;
-            n.d = 3;
-            n.e = 4;
-            n.h = 5;
-            n.l = 6;
-            n.pc = 7;
-            n.sp = 8;
-            n.cb = 9;
-            n.a = 10;
-            n.sb = 11;
-            n.zb = 12;
-            n.pb = 13;
+            n.a = 1;
+            n.b = 2;
+            n.c = 3;
+            n.d = 4;
+            n.e = 5;
+            n.h = 6;
+            n.l = 7;
+            n.pc = 8;
+            n.sp = 9;
+            n.cb = 10;
+            n.acb = 11;
+            n.sb = 12;
+            n.zb = 13;
+            n.pb = 14;
             n.memory = new Uint8Array([0xff]);
 
             expect(n.getState()).to.be.deep.equal({
-                b: 1,
-                c: 2,
-                d: 3,
-                e: 4,
-                h: 5,
-                l: 6,
-                pc: 7,
-                sp: 8,
-                cb: 9,
-                a: 10,
-                sb: 11,
-                zb: 12,
-                pb: 13,
+                a: 1,
+                b: 2,
+                c: 3,
+                d: 4,
+                e: 5,
+                h: 6,
+                l: 7,
+                pc: 8,
+                sp: 9,
+                cb: 10,
+                acb: 11,
+                sb: 12,
+                zb: 13,
+                pb: 14,
                 memory: new Uint8Array([0xff])
             });
         });
