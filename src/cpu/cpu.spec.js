@@ -266,5 +266,18 @@ describe('Newton', () => {
             expect(n.runNextInstruction()).to.be.equal(10);
             expect(n.getState()).to.be.deep.equal(mirrorState);
         });
+
+        it('STA', () => {
+            n.memory = [0xff, 0x00, 0x32, 0x01, 0x00];
+            n.a = 0xdd;
+            n.pc = 2;
+
+            mirrorState.pc = 5;
+            mirrorState.memory = [0xdd, 0x00, 0x32, 0x01, 0x00];
+            mirrorState.a = 0xdd;
+
+            expect(n.runNextInstruction()).to.be.equal(13);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
     });
 });

@@ -138,6 +138,12 @@ Newton.prototype.MVI_M_D8 = function MVI_M_D8() {
     return 10;
 };
 
+Newton.prototype.STA = function STA() {
+    const m = this.readBytes(2, this.pc - 1);
+    this.writeBytes(m, this.a);
+    return 13;
+};
+
 Newton.prototype.runNextInstruction = function runNextInstruction() {
     switch (this.memory[this.pc]) {
         case 0x00: { this.pc += 1; return this.NOP(); }
@@ -153,6 +159,7 @@ Newton.prototype.runNextInstruction = function runNextInstruction() {
         case 0x26: { this.pc += 2; return this.MVI_H_D8(); }
         case 0x2e: { this.pc += 2; return this.MVI_L_D8(); }
         case 0x36: { this.pc += 2; return this.MVI_M_D8(); }
+        case 0x32: { this.pc += 3; return this.STA(); }
         default: throw new Error('Unknown OP Code');
     }
 };
