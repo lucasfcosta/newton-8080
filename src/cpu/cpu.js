@@ -72,6 +72,12 @@ Newton.prototype.push = function push(reg1, reg2) {
     return 11;
 };
 
+// TODO check D8 meaning on all MOV_REGs and maybe remove it
+Newton.prototype.moveImmediate = function moveImmediate(reg) {
+    this[reg] = this.readBytes(1, this.pc - 1);
+    return 10;
+};
+
 Newton.prototype.NOP = function NOP() {
     return 4;
 };
@@ -93,6 +99,33 @@ Newton.prototype.PUSH_H = function PUSH_D() {
     return this.push(this.h, this.l);
 };
 
+Newton.prototype.MVI_A_D8 = function MVI_A_D8() {
+    return this.moveImmediate('a');
+};
+
+Newton.prototype.MVI_B_D8 = function MVI_B_D8() {
+    return this.moveImmediate('b');
+};
+
+Newton.prototype.MVI_C_D8 = function MVI_C_D8() {
+    return this.moveImmediate('c');
+};
+
+Newton.prototype.MVI_D_D8 = function MVI_D_D8() {
+    return this.moveImmediate('d');
+};
+
+Newton.prototype.MVI_E_D8 = function MVI_E_D8() {
+    return this.moveImmediate('e');
+};
+
+Newton.prototype.MVI_H_D8 = function MVI_H_D8() {
+    return this.moveImmediate('h');
+};
+
+Newton.prototype.MVI_L_D8 = function MVI_L_D8() {
+    return this.moveImmediate('l');
+};
 
 Newton.prototype.runNextInstruction = function runNextInstruction() {
     switch (this.memory[this.pc]) {
@@ -101,6 +134,13 @@ Newton.prototype.runNextInstruction = function runNextInstruction() {
         case 0xc5: { this.pc += 1; return this.PUSH_B(); }
         case 0xd5: { this.pc += 1; return this.PUSH_D(); }
         case 0xe5: { this.pc += 1; return this.PUSH_H(); }
+        case 0x3e: { this.pc += 2; return this.MVI_A_D8(); }
+        case 0x06: { this.pc += 2; return this.MVI_B_D8(); }
+        case 0x0e: { this.pc += 2; return this.MVI_C_D8(); }
+        case 0x16: { this.pc += 2; return this.MVI_D_D8(); }
+        case 0x1e: { this.pc += 2; return this.MVI_E_D8(); }
+        case 0x26: { this.pc += 2; return this.MVI_H_D8(); }
+        case 0x2e: { this.pc += 2; return this.MVI_L_D8(); }
         default: throw new Error('Unknown OP Code');
     }
 };

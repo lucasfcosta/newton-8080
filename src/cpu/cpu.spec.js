@@ -172,5 +172,82 @@ describe('Newton', () => {
             expect(n.runNextInstruction()).to.be.equal(11);
             expect(n.getState()).to.be.deep.equal(mirrorState);
         });
+
+        it('MVI_A_D8', () => {
+            n.memory = [0x3e, 0x03, 0x00, 0x11];
+
+            mirrorState.pc = 2;
+            mirrorState.memory = [0x3e, 0x03, 0x00, 0x11];
+            mirrorState.a = 0x03;
+
+            expect(n.runNextInstruction()).to.be.equal(10);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
+
+        it('MVI_B_D8', () => {
+            n.memory = [0x06, 0x03, 0x00, 0x11];
+
+            mirrorState.pc = 2;
+            mirrorState.memory = [0x06, 0x03, 0x00, 0x11];
+            mirrorState.b = 0x03;
+
+            expect(n.runNextInstruction()).to.be.equal(10);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
+
+        it('MVI_C_D8', () => {
+            n.memory = [0x0e, 0x03, 0x00, 0x11];
+
+            mirrorState.pc = 2;
+            mirrorState.memory = [0x0e, 0x03, 0x00, 0x11];
+            mirrorState.c = 0x03;
+
+            expect(n.runNextInstruction()).to.be.equal(10);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
+
+        it('MVI_D_D8', () => {
+            n.memory = [0x16, 0x03, 0x00, 0x11];
+
+            mirrorState.pc = 2;
+            mirrorState.memory = [0x16, 0x03, 0x00, 0x11];
+            mirrorState.d = 0x03;
+
+            expect(n.runNextInstruction()).to.be.equal(10);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
+
+        it('MVI_E_D8', () => {
+            n.memory = [0x1e, 0x03, 0x00, 0x11];
+
+            mirrorState.pc = 2;
+            mirrorState.memory = [0x1e, 0x03, 0x00, 0x11];
+            mirrorState.e = 0x03;
+
+            expect(n.runNextInstruction()).to.be.equal(10);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
+
+        it('MVI_H_D8', () => {
+            n.memory = [0x26, 0x03, 0x00, 0x11];
+
+            mirrorState.pc = 2;
+            mirrorState.memory = [0x26, 0x03, 0x00, 0x11];
+            mirrorState.h = 0x03;
+
+            expect(n.runNextInstruction()).to.be.equal(10);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
+
+        it('MVI_L_D8', () => {
+            n.memory = [0x2e, 0x03, 0x00, 0x11];
+
+            mirrorState.pc = 2;
+            mirrorState.memory = [0x2e, 0x03, 0x00, 0x11];
+            mirrorState.l = 0x03;
+
+            expect(n.runNextInstruction()).to.be.equal(10);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
     });
 });
