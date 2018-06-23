@@ -144,6 +144,11 @@ Newton.prototype.STA = function STA() {
     return 13;
 };
 
+Newton.prototype.LXI_H = function LXI_H() {
+    this.h = this.readBytes(2, this.pc - 2);
+    return 10;
+};
+
 Newton.prototype.runNextInstruction = function runNextInstruction() {
     switch (this.memory[this.pc]) {
         case 0x00: { this.pc += 1; return this.NOP(); }
@@ -160,6 +165,7 @@ Newton.prototype.runNextInstruction = function runNextInstruction() {
         case 0x2e: { this.pc += 2; return this.MVI_L_D8(); }
         case 0x36: { this.pc += 2; return this.MVI_M_D8(); }
         case 0x32: { this.pc += 3; return this.STA(); }
+        case 0x21: { this.pc += 3; return this.LXI_H(); }
         default: throw new Error('Unknown OP Code');
     }
 };
