@@ -149,6 +149,18 @@ Newton.prototype.LXI_H = function LXI_H() {
     return 10;
 };
 
+Newton.prototype.DCR_M = function DCR_M() {
+    const m = this.h << 8 | this.l;
+    const result = (this.readBytes(1, m) - 1) & 0xFF;
+    this.writeBytes(m, result);
+
+    this.acb = (result & 0xF) === 0 ? 1 : 0;
+    this.zb = (result & 255) === 0 ? 1 : 0;
+    this.sb = (result & 128) > 0 ? 1 : 0;
+
+    return 10;
+};
+
 Newton.prototype.runNextInstruction = function runNextInstruction() {
     switch (this.memory[this.pc]) {
         case 0x00: { this.pc += 1; return this.NOP(); }
@@ -166,6 +178,7 @@ Newton.prototype.runNextInstruction = function runNextInstruction() {
         case 0x36: { this.pc += 2; return this.MVI_M_D8(); }
         case 0x32: { this.pc += 3; return this.STA(); }
         case 0x21: { this.pc += 3; return this.LXI_H(); }
+        case 0x35: { this.pc += 1; return this.DCR_M(); }
         default: throw new Error('Unknown OP Code');
     }
 };

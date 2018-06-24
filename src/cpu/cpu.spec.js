@@ -290,5 +290,46 @@ describe('Newton', () => {
             expect(n.runNextInstruction()).to.be.equal(10);
             expect(n.getState()).to.be.deep.equal(mirrorState);
         });
+
+        describe('DCR M', () => {
+            it('decrements the value at the correct memory location', () => {
+                n.memory = [0x35, 0x02];
+                n.h = 0x0000;
+                n.l = 0x0001;
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState().pc).to.be.deep.equal(1);
+                expect(n.getState().memory).to.be.deep.equal([0x35, 0x01]);
+                expect(n.getState().h).to.be.deep.equal(0x0000);
+                expect(n.getState().l).to.be.deep.equal(0x0001);
+            });
+
+            it('sets the auxiliary carry bit to indicate the carry out of bit 3', () => {
+                n.memory = [0x35, 0xf1];
+                n.h = 0x0000;
+                n.l = 0x0001;
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState().acb).to.be.equal(1);
+            });
+
+            it('sets the zero bit when the result is 0', () => {
+                n.memory = [0x35, 0x01];
+                n.h = 0x0000;
+                n.l = 0x0001;
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState().zb).to.be.equal(1);
+            });
+
+            it('sets the sign bit to 1 when result is negative', () => {
+                n.memory = [0x35, 0x00];
+                n.h = 0x0000;
+                n.l = 0x0001;
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState().sb).to.be.equal(1);
+            });
+        });
     });
 });
