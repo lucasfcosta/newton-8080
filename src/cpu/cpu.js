@@ -73,7 +73,7 @@ Newton.prototype.push = function push(...args) {
     for (let i = 1; i <= args.length; i++) {
         this.sp -= 1;
         this.writeBytes(this.sp, args[i - 1]);
-    };
+    }
 
     return 11;
 };
