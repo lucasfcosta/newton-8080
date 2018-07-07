@@ -69,10 +69,12 @@ Newton.prototype.writeBytes = function writeBytes(offset, v) {
     return this.memory;
 };
 
-Newton.prototype.push = function push(reg1, reg2) {
-    this.writeBytes(this.sp - 1, reg1);
-    this.writeBytes(this.sp - 2, reg2);
-    this.sp -= 2;
+Newton.prototype.push = function push(...args) {
+    for (let i = 1; i <= args.length; i++) {
+        this.sp -= 1;
+        this.writeBytes(this.sp, args[i - 1]);
+    }
+
     return 11;
 };
 
@@ -161,6 +163,12 @@ Newton.prototype.DCR_M = function DCR_M() {
     return 10;
 };
 
+Newton.prototype.CALL = function CALL() {
+    this.push(this.pc);
+    this.pc = this.readBytes(2, this.pc - 2);
+    return 17;
+};
+
 Newton.prototype.runNextInstruction = function runNextInstruction() {
     switch (this.memory[this.pc]) {
         case 0x00: { this.pc += 1; return this.NOP(); }
@@ -179,6 +187,7 @@ Newton.prototype.runNextInstruction = function runNextInstruction() {
         case 0x32: { this.pc += 3; return this.STA(); }
         case 0x21: { this.pc += 3; return this.LXI_H(); }
         case 0x35: { this.pc += 1; return this.DCR_M(); }
+        case 0xcd: { this.pc += 3; return this.CALL(); }
         default: throw new Error('Unknown OP Code');
     }
 };
