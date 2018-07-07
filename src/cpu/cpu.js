@@ -164,10 +164,10 @@ Newton.prototype.DCR_M = function DCR_M() {
 };
 
 Newton.prototype.CALL = function CALL() {
-    this.push(this.pc)
+    this.push(this.pc);
     this.pc = this.readBytes(2, this.pc - 2);
     return 17;
-}
+};
 
 Newton.prototype.RRC = function RRC() {
     this.a = (this.a >> 1) | (this.a << 7) & 0xff;
