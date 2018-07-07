@@ -439,5 +439,57 @@ describe('Newton', () => {
             expect(n.runNextInstruction()).to.be.equal(7);
             expect(n.getState()).to.be.deep.equal(mirrorState);
         });
+
+        describe('JZ', () => {
+            it('jumps if zero bit is 1', () => {
+                n.memory = [0xca, 0x37, 0x13];
+                n.zb = 1;
+
+                mirrorState.pc = 0x1337;
+                mirrorState.zb = 1;
+                mirrorState.memory = [0xca, 0x37, 0x13];
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState()).to.be.deep.equal(mirrorState);
+            });
+
+            it('does not jump if zero bit is 0', () => {
+                n.memory = [0xca, 0x37, 0x13];
+                n.zb = 0;
+
+                mirrorState.pc = 3;
+                mirrorState.zb = 0;
+                mirrorState.memory = [0xca, 0x37, 0x13];
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState()).to.be.deep.equal(mirrorState);
+            });
+        });
+
+        describe('JNZ', () => {
+            it('jumps if zero bit is 0', () => {
+                n.memory = [0xc2, 0x37, 0x13];
+                n.zb = 0;
+
+                mirrorState.pc = 0x1337;
+                mirrorState.zb = 0;
+                mirrorState.memory = [0xc2, 0x37, 0x13];
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState()).to.be.deep.equal(mirrorState);
+            });
+
+            it('does not jump if zero bit is 1', () => {
+                n.memory = [0xc2, 0x37, 0x13];
+                n.zb = 1;
+
+                mirrorState.pc = 3;
+                mirrorState.zb = 1;
+                mirrorState.memory = [0xc2, 0x37, 0x13];
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState()).to.be.deep.equal(mirrorState);
+            });
+        });
     });
 });
