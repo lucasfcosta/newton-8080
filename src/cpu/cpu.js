@@ -73,7 +73,7 @@ Newton.prototype.push = function push(...args) {
     for (let i = 1; i <= args.length; i++) {
         this.sp -= 1;
         this.writeBytes(this.sp, args[i - 1]);
-    }
+    };
 
     return 11;
 };
@@ -164,9 +164,15 @@ Newton.prototype.DCR_M = function DCR_M() {
 };
 
 Newton.prototype.CALL = function CALL() {
-    this.push(this.pc);
+    this.push(this.pc)
     this.pc = this.readBytes(2, this.pc - 2);
     return 17;
+}
+
+Newton.prototype.RRC = function RRC() {
+    this.a = (this.a >> 1) | (this.a << 7) & 0xff;
+    this.cb = this.a & 0x80;
+    return 4;
 };
 
 Newton.prototype.runNextInstruction = function runNextInstruction() {
@@ -188,6 +194,7 @@ Newton.prototype.runNextInstruction = function runNextInstruction() {
         case 0x21: { this.pc += 3; return this.LXI_H(); }
         case 0x35: { this.pc += 1; return this.DCR_M(); }
         case 0xcd: { this.pc += 3; return this.CALL(); }
+        case 0x0f: { this.pc += 1; return this.RRC(); }
         default: throw new Error('Unknown OP Code');
     }
 };

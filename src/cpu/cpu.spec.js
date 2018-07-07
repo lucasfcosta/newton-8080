@@ -343,5 +343,19 @@ describe('Newton', () => {
             expect(n.runNextInstruction()).to.be.equal(17);
             expect(n.getState()).to.be.deep.equal(mirrorState);
         });
+
+        it('RRC', () => {
+            n.memory = [0x0f, 0xdd, 0x10];
+            n.a = 0xf2;
+            n.cb = 0;
+
+            mirrorState.pc = 1;
+            mirrorState.a = 0x79;
+            mirrorState.cb = 0;
+            mirrorState.memory = [0x0f, 0xdd, 0x10];
+
+            expect(n.runNextInstruction()).to.be.equal(4);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
     });
 });
