@@ -420,5 +420,24 @@ describe('Newton', () => {
             expect(n.runNextInstruction()).to.be.equal(13);
             expect(n.getState()).to.be.deep.equal(mirrorState);
         });
+
+        it('ANA_A', () => {
+            n.memory = [0xa7, 0xdd, 0x1d];
+            n.a = 0xff;
+            n.cb = 1;
+            n.acb = 1;
+
+            mirrorState.pc = 1;
+            mirrorState.memory = [0xa7, 0xdd, 0x1d];
+            mirrorState.a = 0xff;
+            mirrorState.cb = 0;
+            mirrorState.acb = 0;
+            mirrorState.zb = 0;
+            mirrorState.sb = 1;
+            mirrorState.pb = 1;
+
+            expect(n.runNextInstruction()).to.be.equal(7);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
     });
 });

@@ -196,6 +196,24 @@ Newton.prototype.LDA = function LDA() {
     return 13;
 };
 
+Newton.prototype.ANA_A = function ANA_A() {
+    this.a = this.a & this.a;
+    this.cb = 0;
+    this.acb = 0;
+    this.zb = (this.a & 255) === 0 ? 1 : 0;
+    this.sb = (this.a & 128) > 0 ? 1 : 0;
+
+    // TODO find a more efficient way of doing this
+    let c = 0;
+    for (let v = this.a; v; v = v >> 1) {
+        c += v & 1;
+    }
+
+    this.pb = c % 2 === 0 ? 1 : 0;
+
+    return 7;
+};
+
 Newton.prototype.runNextInstruction = function runNextInstruction() {
     switch (this.memory[this.pc]) {
         case 0x00: { this.pc += 1; return this.NOP(); }
@@ -219,6 +237,7 @@ Newton.prototype.runNextInstruction = function runNextInstruction() {
         case 0xda: { this.pc += 3; return this.JC(); }
         case 0xd2: { this.pc += 3; return this.JNC(); }
         case 0x3a: { this.pc += 3; return this.LDA(); }
+        case 0xa7: { this.pc += 1; return this.ANA_A(); }
         default: throw new Error('Unknown OP Code');
     }
 };
