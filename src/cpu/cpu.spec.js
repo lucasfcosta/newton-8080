@@ -357,5 +357,57 @@ describe('Newton', () => {
             expect(n.runNextInstruction()).to.be.equal(4);
             expect(n.getState()).to.be.deep.equal(mirrorState);
         });
+
+        describe('JC', () => {
+            it('jumps if carry bit is 1', () => {
+                n.memory = [0xda, 0xdd, 0x11];
+                n.cb = 1;
+
+                mirrorState.pc = 0x11dd;
+                mirrorState.cb = 1;
+                mirrorState.memory = [0xda, 0xdd, 0x11];
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState()).to.be.deep.equal(mirrorState);
+            });
+
+            it('does not jump if carry bit is 0', () => {
+                n.memory = [0xda, 0xdd, 0x11];
+                n.cb = 0;
+
+                mirrorState.pc = 3;
+                mirrorState.cb = 0;
+                mirrorState.memory = [0xda, 0xdd, 0x11];
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState()).to.be.deep.equal(mirrorState);
+            });
+        });
+
+        describe('JNC', () => {
+            it('jumps if carry bit is 0', () => {
+                n.memory = [0xd2, 0xdd, 0x11];
+                n.cb = 0;
+
+                mirrorState.pc = 0x11dd;
+                mirrorState.cb = 0;
+                mirrorState.memory = [0xd2, 0xdd, 0x11];
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState()).to.be.deep.equal(mirrorState);
+            });
+
+            it('does not jump if carry bit is 1', () => {
+                n.memory = [0xd2, 0xdd, 0x11];
+                n.cb = 1;
+
+                mirrorState.pc = 3;
+                mirrorState.cb = 1;
+                mirrorState.memory = [0xd2, 0xdd, 0x11];
+
+                expect(n.runNextInstruction()).to.be.equal(10);
+                expect(n.getState()).to.be.deep.equal(mirrorState);
+            });
+        });
     });
 });

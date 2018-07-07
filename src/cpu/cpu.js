@@ -175,6 +175,22 @@ Newton.prototype.RRC = function RRC() {
     return 4;
 };
 
+Newton.prototype.JC = function JC() {
+    if (this.cb) {
+        this.pc = this.readBytes(2, this.pc - 2);
+    }
+
+    return 10;
+};
+
+Newton.prototype.JNC = function JNC() {
+    if (!this.cb) {
+        this.pc = this.readBytes(2, this.pc - 2);
+    }
+
+    return 10;
+};
+
 Newton.prototype.runNextInstruction = function runNextInstruction() {
     switch (this.memory[this.pc]) {
         case 0x00: { this.pc += 1; return this.NOP(); }
@@ -195,6 +211,8 @@ Newton.prototype.runNextInstruction = function runNextInstruction() {
         case 0x35: { this.pc += 1; return this.DCR_M(); }
         case 0xcd: { this.pc += 3; return this.CALL(); }
         case 0x0f: { this.pc += 1; return this.RRC(); }
+        case 0xda: { this.pc += 3; return this.JC(); }
+        case 0xd2: { this.pc += 3; return this.JNC(); }
         default: throw new Error('Unknown OP Code');
     }
 };
