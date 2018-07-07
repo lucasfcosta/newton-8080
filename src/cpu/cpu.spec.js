@@ -409,5 +409,16 @@ describe('Newton', () => {
                 expect(n.getState()).to.be.deep.equal(mirrorState);
             });
         });
+
+        it('LDA', () => {
+            n.memory = [0x3a, 0x37, 0x13];
+
+            mirrorState.memory = [0x3a, 0x37, 0x13];
+            mirrorState.a = 0x1337;
+            mirrorState.pc = 3;
+
+            expect(n.runNextInstruction()).to.be.equal(13);
+            expect(n.getState()).to.be.deep.equal(mirrorState);
+        });
     });
 });

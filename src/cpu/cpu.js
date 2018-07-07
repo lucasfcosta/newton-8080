@@ -191,6 +191,11 @@ Newton.prototype.JNC = function JNC() {
     return 10;
 };
 
+Newton.prototype.LDA = function LDA() {
+    this.a = this.readBytes(2, this.pc - 2);
+    return 13;
+};
+
 Newton.prototype.runNextInstruction = function runNextInstruction() {
     switch (this.memory[this.pc]) {
         case 0x00: { this.pc += 1; return this.NOP(); }
@@ -213,6 +218,7 @@ Newton.prototype.runNextInstruction = function runNextInstruction() {
         case 0x0f: { this.pc += 1; return this.RRC(); }
         case 0xda: { this.pc += 3; return this.JC(); }
         case 0xd2: { this.pc += 3; return this.JNC(); }
+        case 0x3a: { this.pc += 3; return this.LDA(); }
         default: throw new Error('Unknown OP Code');
     }
 };
